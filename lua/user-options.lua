@@ -21,9 +21,10 @@ vim.opt.colorcolumn = "81"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "auto:1"
+vim.opt.signcolumn = "yes"
 vim.opt.wrap = false
 
 -- Remaps
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+

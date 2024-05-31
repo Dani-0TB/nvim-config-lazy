@@ -72,21 +72,53 @@ return {
       end)
 
       require('mason-lspconfig').setup({
-        ensure_installed = {"clangd","lua_ls", "eslint_d", "tsserver", "rust_analyzer"},
+        ensure_installed = {"clangd","lua_ls", "tsserver", "rust_analyzer"},
         handlers = {
-          -- this first function is the "default handler"
-          -- it applies to every language server without a "custom handler"
-          function(server_name)
-            require('lspconfig')[server_name].setup({})
-          end,
+            -- this first function is the "default handler"
+            -- it applies to every language server without a "custom handler"
+              function(server_name)
+                require('lspconfig')[server_name].setup({})
+              end,
 
-          -- this is the "custom handler" for `lua_ls`
-          lua_ls = function()
-            -- (Optional) Configure lua language server for neovim
-            local lua_opts = lsp_zero.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(lua_opts)
-          end,
-        }
+              -- this is the "custom handler" for `lua_ls`
+              lua_ls = function()
+                -- (Optional) Configure lua language server for neovim
+                local lua_opts = lsp_zero.nvim_lua_ls()
+                require('lspconfig').lua_ls.setup(lua_opts)
+              end,
+
+              volar = function()
+                require('lspconfig').volar.setup({})
+              end,
+              tsserver = function()
+                  local vue_typescript_plugin = require('mason-registry')
+                    .get_package('vue-language-server')
+                    :get_install_path()
+                    .. '/node_modules/@vue/language-server'
+                    .. '/node_modules/@vue/typescript-plugin'
+
+                  require('lspconfig').tsserver.setup({
+                    init_options = {
+                      plugins = {
+                        {
+                          name = "@vue/typescript-plugin",
+                          location = vue_typescript_plugin,
+                          languages = {'javascript', 'typescript', 'vue'}
+                        },
+                      }
+                    },
+                    filetypes = {
+                      'javascript',
+                      'javascriptreact',
+                      'javascript.jsx',
+                      'typescript',
+                      'typescriptreact',
+                      'typescript.tsx',
+                      'vue',
+                    },
+                })
+            end,
+          }
       })
     end
   }

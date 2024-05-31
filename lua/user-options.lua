@@ -17,7 +17,6 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 --visual
-vim.opt.colorcolumn = "81"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
@@ -27,4 +26,3 @@ vim.opt.wrap = false
 -- Remaps
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-

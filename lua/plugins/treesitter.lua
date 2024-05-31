@@ -1,8 +1,8 @@
 return {
     'nvim-treesitter/nvim-treesitter',
-    cmd = {"TSUpdate"},
+    build = {":TSUpdate"},
     config = function()
-        require('nvim-treesitter').setup({
+        require('nvim-treesitter.configs').setup({
             ensure_installed = {
                 "c",
                 "lua",
@@ -12,13 +12,13 @@ return {
                 "javascript",
                 "typescript",
                 "vue",
-                "rust" },
+                "rust",
+                "html"},
             sync_install = false,
             auto_install = true,
             highlight = { enable = true},
             indent = { enable = true }
-        }
-)
+        })
     end
 }
 

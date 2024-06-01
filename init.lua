@@ -1,4 +1,4 @@
 require("user-options")
 require("lazy-nvim")
 
-vim.cmd.colorscheme('catppuccin')
+vim.cmd.colorscheme("catppuccin")

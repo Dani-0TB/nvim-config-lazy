@@ -26,3 +26,6 @@ vim.opt.wrap = false
 -- Remaps
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+vim.keymap.set("n", "<C-d>", "25jzz")
+vim.keymap.set("n", "<C-u>", "25kzz")

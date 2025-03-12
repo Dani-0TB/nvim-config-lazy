@@ -9,19 +9,33 @@ return {
   {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
-    dependencies = {
-      {'L3MON4D3/LuaSnip'},
-    },
     config = function()
-      -- And you can configure cmp even more, if you want to.
       local cmp = require('cmp')
 
       cmp.setup({
+        sources = {
+          {name = 'nvim_lsp'},
+        },
         mapping = cmp.mapping.preset.insert({
           ['<CR>']  = cmp.mapping.confirm({select= false}),
-          ['<Tab']  = cmp.mapping.complete(),
+          -- Simple tab complete
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            local col = vim.fn.col('.') - 1
+
+            if cmp.visible() then
+              cmp.select_next_item({behavior = 'select'})
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+              fallback()
+            else
+              cmp.complete()
+            end
+          end, {'i', 's'}),
+
+          -- Go to previous item
+          ['<S-Tab>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
+
         }),
         snippet = {
           expand = function(args)
@@ -77,23 +91,63 @@ return {
       require('mason-lspconfig').setup({
         ensure_installed = {"clangd","lua_ls", "ts_ls", "rust_analyzer", "lua_ls"},
         handlers = {
-            -- this first function is the "default handler"
-            -- it applies to every language server without a "custom handler"
               function(server_name)
                 require('lspconfig')[server_name].setup({})
               end,
 
               lua_ls = function()
-                require('lspconfig').lua_ls.setup({
-                  settings = {
-                    Lua = {
-                      diagnostics = {
-                        globals = {"vim"}
-                      }
-                    }
-                  }
-                })
-              end,
+      require('lspconfig').lua_ls.setup({
+        settings = {
+          Lua = {
+            telemetry = {
+              enable = false
+            },
+          },
+        },
+        on_init = function(client)
+          local join = vim.fs.joinpath
+          local path = client.workspace_folders[1].name
+
+          -- Don't do anything if there is project local config
+          if vim.uv.fs_stat(join(path, '.luarc.json')) 
+            or vim.uv.fs_stat(join(path, '.luarc.jsonc'))
+          then
+            return
+          end
+
+          -- Apply neovim specific settings
+          local runtime_path = vim.split(package.path, ';')
+          table.insert(runtime_path, join('lua', '?.lua'))
+          table.insert(runtime_path, join('lua', '?', 'init.lua'))
+
+          local nvim_settings = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using
+              version = 'LuaJIT',
+              path = runtime_path
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = {'vim'}
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                -- Make the server aware of Neovim runtime files
+                vim.env.VIMRUNTIME,
+                vim.fn.stdpath('config'),
+              },
+            },
+          }
+
+          client.config.settings.Lua = vim.tbl_deep_extend(
+            'force',
+            client.config.settings.Lua,
+            nvim_settings
+          )
+        end,
+      })
+    end,
 
               volar = function()
                 require('lspconfig').volar.setup({})

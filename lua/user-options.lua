@@ -33,3 +33,6 @@ vim.keymap.set("n", "<C-u>", "25kzz")
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 
+vim.keymap.set("n", "<leader>fb", ":Telescope file_browser<CR>")
+
+vim.keymap.set("n", "<leader>fr", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")

@@ -37,3 +37,4 @@ vim.keymap.set("n", "N", "Nzz")
 vim.keymap.set("n", "<leader>fB", ":Telescope file_browser<CR>")
 vim.keymap.set("n", "<leader>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
 
+vim.keymap.set("n", "<leader>gi", ":Git<CR>")

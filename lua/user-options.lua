@@ -1,4 +1,4 @@
--- System
+-- system
 vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.syntax = ""
@@ -16,14 +16,14 @@ vim.opt.shiftwidth = 4
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
---visual
+-- visual --
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.wrap = true
 
--- Remaps
+-- remaps neovim --
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -33,6 +33,7 @@ vim.keymap.set("n", "<C-u>", "25kzz")
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 
+-- remaps file browser
 vim.keymap.set("n", "<leader>fB", ":Telescope file_browser<CR>")
-
 vim.keymap.set("n", "<leader>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+

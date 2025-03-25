@@ -140,6 +140,7 @@ return {
                                             -- Make the server aware of Neovim runtime files
                                             vim.env.VIMRUNTIME,
                                             vim.fn.stdpath('config'),
+                                            "${3rd}/luv/library"
                                         },
                                     },
                                 }

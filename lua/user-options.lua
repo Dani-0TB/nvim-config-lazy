@@ -7,6 +7,7 @@ vim.opt.timeoutlen = 1500
 -- indentation
 vim.opt.expandtab = true
 vim.opt.smartindent = true
+vim.opt.smarttab = true
 vim.opt.shiftround = true
 vim.opt.softtabstop = 4
 vim.opt.tabstop = 4

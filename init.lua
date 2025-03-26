@@ -1,4 +1,4 @@
 local opt = vim.cmd
-require("lazy-nvim")
 require("user-options")
+require("lazy-nvim")
 opt.colorscheme("catppuccin")

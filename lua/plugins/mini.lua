@@ -10,9 +10,6 @@ return {
 
             local surround = require 'mini.surround'
             surround.setup()
-
-            local statusline = require 'mini.statusline'
-            statusline.setup()
         end,
     }
 }

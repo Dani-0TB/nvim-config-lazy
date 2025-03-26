@@ -155,7 +155,7 @@ return {
                     end,
 
                     volar = function()
-                        require('lspconfig').volar.setup({})
+                        require('lspconfig').volar.setup{}
                     end,
 
                     ts_ls = function()

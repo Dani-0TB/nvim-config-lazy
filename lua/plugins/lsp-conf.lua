@@ -22,6 +22,10 @@ return {
                 mapping = cmp.mapping.preset.insert({
                     -- Accept on enter
                     ['<CR>']    = cmp.mapping.confirm({ select = false }),
+
+                    -- trigger completion menu
+                    ['<C-Space>'] = cmp.mapping.complete(),
+
                     -- Simple tab complete
                     ['<Tab>']   = cmp.mapping(function(fallback)
                         local col = vim.fn.col('.') - 1
@@ -40,6 +44,25 @@ return {
                     ['<C-u>']   = cmp.mapping.scroll_docs(-4),
                     ['<C-d>']   = cmp.mapping.scroll_docs(4),
 
+                    -- jump to the next snippet placeholder
+                    ['<C-f>'] = cmp.mapping(function(fallback)
+                        local luasnip = require('luasnip')
+                        if luasnip.locally_jumpable(1) then
+                            luasnip.jump(1)
+                        else
+                            fallback()
+                        end
+                    end, {'i', 's'}),
+
+                    -- jump to the previous snippet placeholder
+                    ['<C-b>'] = cmp.mapping(function(fallback)
+                        local luasnip = require('luasnip')
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, {'i', 's'}),
                 }),
                 snippet = {
                     expand = function(args)
@@ -140,7 +163,8 @@ return {
                                             -- Make the server aware of Neovim runtime files
                                             vim.env.VIMRUNTIME,
                                             vim.fn.stdpath('config'),
-                                            "${3rd}/luv/library"
+                                            "${3rd}/luv/library",
+                                            unpack(vim.api.nvim_get_runtime_file('',true))
                                         },
                                     },
                                 }
@@ -186,6 +210,9 @@ return {
                             },
                         })
                     end,
+                    clangd = function()
+                        require('lspconfig').clangd.setup {}
+                    end
                 }
             })
         end

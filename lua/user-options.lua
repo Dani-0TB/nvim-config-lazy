@@ -44,3 +44,7 @@ map("n", "<leader>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR
 
 -- remaps for fugitive
 map("n", "<leader>gf", ":Git<CR>")
+
+-- remaps for diagnostics
+map('n', '<leader>do', ":lua vim.diagnostic.open_float()<CR>")
+map('n', '<leader>dd', ":lua vim.diagnostic.setloclist()<CR>")

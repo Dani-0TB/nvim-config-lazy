@@ -211,7 +211,9 @@ return {
                         })
                     end,
                     clangd = function()
-                        require('lspconfig').clangd.setup {}
+                        require('lspconfig').clangd.setup {
+                            cmd = {'clangd', '--background-index', '--clang-tidy', '--log=verbose'},
+                        }
                     end
                 }
             })

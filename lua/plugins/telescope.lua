@@ -1,9 +1,9 @@
--- plugins/telescope.lua:
+-- plugins/telescope.lua: configuration from kickstart neovim for keymappings
 return {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
-    dependencies = { 
-        'nvim-lua/plenary.nvim', 
+    dependencies = {
+        'nvim-lua/plenary.nvim',
         {'nvim-telescope/telescope-fzf-native.nvim',
             build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release'},
         { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },

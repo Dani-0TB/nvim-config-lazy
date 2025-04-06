@@ -1,3 +1,5 @@
+-- Autocompletion configuration from kickstart neovim
+-- added cmp-buffer
 return {
   { -- Autocompletion
     'hrsh7th/nvim-cmp',

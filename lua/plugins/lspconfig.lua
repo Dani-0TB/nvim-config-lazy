@@ -1,3 +1,4 @@
+-- LSP configuration from kickstart neovim with my configuration for TypeScript
 return {
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins

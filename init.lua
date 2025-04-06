@@ -1,5 +1,4 @@
 -- Global setups
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

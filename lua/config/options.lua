@@ -23,5 +23,4 @@ opt.relativenumber = true
 opt.scrolloff = 8
 opt.signcolumn = "yes"
 opt.wrap = true
-opt.statusline = "%f"
 opt.termguicolors = true

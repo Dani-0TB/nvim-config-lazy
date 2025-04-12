@@ -17,3 +17,6 @@ map("n", "<C-u>", "<C-U>zz")
 -- Center screen while searching
 map("n", "n", "nzz")
 map("n", "N", "Nzz")
+
+-- Diagnostic keymaps
+map("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open [D]iagnostic [f]loat"})

@@ -1,4 +1,4 @@
--- LSP configuration from kickstart neovim with my configuration for TypeScript
+-- LSP configuration from kickstart neovim with my configuration for TypeScript+vue
 return {
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -209,6 +209,8 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        rust_analyzer = {},
+        clangd = {},
         ts_ls = {
           init_options = {
             plugins = {
@@ -217,8 +219,8 @@ return {
                 location = require('mason-registry')
                             .get_package('vue-language-server')
                             :get_install_path()
-                        .. '/node_modules/@vue/language-server'
-                        .. '/node_modules/@vue/typescript-plugin',
+                            .. '/node_modules/@vue/language-server'
+                            .. '/node_modules/@vue/typescript-plugin',
                 languages = { 'javascript', 'typescript', 'vue' }
               },
             }
